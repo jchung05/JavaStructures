@@ -13,7 +13,7 @@ public interface Collection<AnyType> extends Iterable<AnyType>, java.io.Serializ
 	
 	void clear ();
 	
-	java.util.Iterator<AnyType> iterator();
+	Iterator<AnyType> iterator();
 
 	Object [] toArray();
 	

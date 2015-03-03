@@ -1,6 +1,6 @@
 package JavaStructures.util;
 
-public interface Iterator<AnyType>{
+public interface Iterator<AnyType> extends java.util.Iterator{
 	boolean hasNext();
 	
 	AnyType next();

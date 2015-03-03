@@ -1,14 +1,10 @@
 package JavaStructures.util;
 
 public abstract class AbstractCollection<AnyType> implements Collection<AnyType>{
-	//public abstract int size();
-
-	//public abstract Iterator<AnyType> iterator();
-
 	public boolean isEmpty(){ return size() == 0;}
 
 	public void clear(){
-		java.util.Iterator<AnyType> itr = iterator();
+		Iterator<AnyType> itr = iterator();
 		while( itr.hasNext() ){
 			itr.next();
 			itr.remove();
@@ -30,7 +26,7 @@ public abstract class AbstractCollection<AnyType> implements Collection<AnyType>
 	//Can't use foreach loop on a modification to the collection or else exception
 	public boolean remove( Object x ){
 		if( x == null ) return false;
-		java.util.Iterator<AnyType> itr = iterator();
+		Iterator<AnyType> itr = iterator();
 		while( itr.hasNext() ){
 			if( x.equals( itr.next() ) ){
 				itr.remove();

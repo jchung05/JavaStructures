@@ -1,5 +1,7 @@
 package JavaStructures.util;
 import java.io.*;
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
 
 public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements List<AnyType>{
 	private AnyType [] arr;
@@ -14,7 +16,7 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 	}
 
 	public AnyType get( int idx ){
-		if( idx < 0 || idx >= size() ) throw new ArrayIndexOutOfBoundsException();
+		if( idx < 0 || idx >= size() ) throw new ArrayIndexOutOfBoundsException();	
 		return arr[idx];
 	}
 
@@ -47,7 +49,7 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 	}
 
 	public boolean remove( Object x ){
-		
+		return true;
 	}
 	
 	public boolean contains( Object x ){
@@ -62,11 +64,11 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 		return -1;
 	}
 
-	public java.util.Iterator<AnyType> iterator(){
+	public Iterator<AnyType> iterator(){
 		return new ArrayListIterator( 0 );
 	}
 
-	public java.util.ListIterator<AnyType> iterator( int idx ){
+	public ListIterator<AnyType> listIterator( int idx ){
 		return new ArrayListIterator( idx );
 	}
 
@@ -108,9 +110,8 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 			throw new NoSuchElementException();
 		}
 
-		public boolean remove(){
+		public void remove(){
 			if( expectedModCount != modCount ) throw new ConcurrentModificationException();
-			return true;
 		}
 	}
 }
