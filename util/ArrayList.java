@@ -4,10 +4,6 @@ import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
 public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements List<AnyType>{
-	private AnyType [] arr;
-	private int theSize;
-	private int modCount = 0;
-
 	public ArrayList(){ clear();}
 
 	public ArrayList( Collection<? extends AnyType> oarr ){
@@ -49,9 +45,24 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 	}
 
 	public boolean remove( Object x ){
-		return true;
+		if( findPos( x ) == -1 ) return false;
+		else{
+			remove( findPos( x ) );
+			return true;
+		}
 	}
 	
+	public AnyType remove( int idx ){
+		AnyType oldItem = arr[idx];
+		for( int i = idx; i < size() - 1; i++ ){
+			//The last item is ignored and masked out
+			arr[i] = arr[i+1];
+		}
+		theSize--;
+		modCount++;
+		return oldItem;
+	}
+
 	public boolean contains( Object x ){
 		return findPos( x ) != -1;
 	}
@@ -112,6 +123,17 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 
 		public void remove(){
 			if( expectedModCount != modCount ) throw new ConcurrentModificationException();
+			
+			if( nextCompleted ) ArrayList.this.remove( --current );
+			else if( previousCompleted ) ArrayList.this.remove( current );
+			else throw new IllegalStateException();
+
+			previousCompleted = nextCompleted = false;
+			expectedModCount++;
 		}
 	}
+	
+	private AnyType [] arr;
+	private int theSize;
+	private int modCount = 0;
 }
