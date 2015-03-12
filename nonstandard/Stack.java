@@ -9,3 +9,6 @@ public interface Stack<AnyType>{
 	boolean isEmpty();
 	void makeEmpty();
 }
+
+/*	AnyType element();
+	AnyType remove(); */
