@@ -2,32 +2,36 @@ package JavaStructures.nonstandard;
 
 public class ListQueue<AnyType>{
 	public ListQueue(){
-		queueFirst = queueLast = null;
+		front = back = null;
 	}
 
 	public boolean isEmpty(){
-		return queueFirst == null;
+		return front == null;
 	}
 
 	public void makeEmpty(){
-		queueFirst = queueLast = null;
+		front = back = null;
 	}
 
 	public AnyType getFront(){
 		if( isEmpty() ) throw new RuntimeException( "Cannot getFront" );
-		return queueFirst.element;
+		return front.element;
 	}
 
 	public void enqueue( AnyType x ){
-		
+		if( front == null && back == null ) front = back = new ListNode<AnyType>( x );
+		else back = back.next = new ListNode<AnyType>( x );
 	}
 
 	public AnyType dequeue(){
-
+		if( isEmpty() ) throw new RuntimeException( "Cannot dequeue" );
+		AnyType x = front.element;
+		front = front.next;
+		return x;
 	}
 
-	private ListNode<AnyType> queueLast;
-	private ListNode<AnyType> queueFirst;
+	private ListNode<AnyType> back;
+	private ListNode<AnyType> front;
 }
 
 class ListNode<AnyType>{
